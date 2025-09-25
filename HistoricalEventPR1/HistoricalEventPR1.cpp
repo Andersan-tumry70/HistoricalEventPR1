@@ -12,6 +12,19 @@ struct Event {
     string extra;
 };
 
+void printEvent(const Event& e) {
+    if (e.type == "BATTLE") {
+        cout << "Битва: " << e.name
+            << ", дата: " << e.date
+            << ", место: " << e.extra << endl;
+    }
+    else if (e.type == "TREATY") {
+        cout << "Договор: " << e.name
+            << ", дата: " << e.date
+            << ", стороны: " << e.extra << endl;
+    }
+}
+
 int main() {
     setlocale(0, "");
     vector<Event> events;     
@@ -30,13 +43,8 @@ int main() {
             events.push_back(e); // добавляем структуру в конец вектора
         }
         else if (cmd == "PRINT") {
-            for (auto& e : events) { // перебирает все объекты в контейнере
-                if (e.type == "BATTLE") {
-                    cout << "Битва: " << e.name<< ", дата: " << e.date<< ", место: " << e.extra << endl;
-                }
-                else if (e.type == "TREATY") {
-                    cout << "Договор: " << e.name << ", дата: " << e.date<< ", стороны: " << e.extra << endl;
-                }
+            for (auto& e : events) {
+                printEvent(e);
             }
             cout << "---------------------------------------------------------------" << endl;
         }
