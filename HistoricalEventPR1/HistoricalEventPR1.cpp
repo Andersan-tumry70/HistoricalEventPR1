@@ -16,6 +16,10 @@ int main() {
     setlocale(0, "");
     vector<Event> events;     
     ifstream file("commands.txt");
+    if (!file.is_open()) {
+        cerr << "Ошибка: не удалось открыть файл commands.txt" << std::endl;
+        return 1;
+    }
     string cmd;                // Для чтения команд (ADD, REM, PRINT)
 
     // Читаем команды из файла
