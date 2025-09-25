@@ -34,11 +34,12 @@ int main() {
                     cout << "Договор: " << e.name << ", дата: " << e.date<< ", стороны: " << e.extra << endl;
                 }
             }
-            cout << "---------------------------------------------------------------" << endl;
+            cout << "---------------------------------------------------------------/" << endl;
         }
         else if (cmd == "REM") {
             string arg;
             file >> arg;
+
 
             bool isYear = true;
             for (char c : arg) {
