@@ -1,4 +1,4 @@
-ADD BATTLE Borodino true Moscow
+ADD BATTLE Borodino 1812 Moscow
 ADD TREATY ParisPeace 1947 FranceUSSR
 ADD BATTLE Stalingrad 1942 Stalingrad
 ADD TREATY SaintPetersburg 1825 RussiaSweden

@@ -49,7 +49,7 @@ int main() {
                 }
             }
 
-            for (int i = events.size() - 1; i >= 0; --i) {
+            for (size_t i = events.size(); i-- > 0;) {
                 if (isYear) {
                     if (events[i].date > arg) {
                         events.erase(events.begin() + i);
