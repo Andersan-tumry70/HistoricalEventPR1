@@ -25,15 +25,42 @@ void printEvent(const Event& e) {
     }
 }
 
+void removeEvent(vector<Event>& events, const string& arg) {
+    bool isYear = true;
+    for (char c : arg) {
+        if (!isdigit(c)) {
+            isYear = false;
+            break;
+        }
+    }
+
+    if (isYear) {
+        for (size_t i = events.size(); i-- > 0;) {
+            if (events[i].date > arg) {
+                events.erase(events.begin() + i);
+            }
+        }
+    }
+    else {
+        for (size_t i = events.size(); i-- > 0;) {
+            if (events[i].name == arg) {
+                events.erase(events.begin() + i);
+            }
+        }
+    }
+}
+
+
 int main() {
     setlocale(0, "");
-    vector<Event> events;     
+    vector<Event> events;
     ifstream file("commands.txt");
     if (!file.is_open()) {
-        cerr << "Ошибка: не удалось открыть файл commands.txt" << std::endl;
+        cerr << "Ошибка: не удалось открыть файл commands.txt" << endl;
         return 1;
     }
-    string cmd;                // Для чтения команд (ADD, REM, PRINT)
+
+    string cmd;
 
     // Читаем команды из файла
     while (file >> cmd) {
@@ -51,30 +78,8 @@ int main() {
         else if (cmd == "REM") {
             string arg;
             file >> arg;
-
-
-            bool isYear = true;
-            for (char c : arg) {
-                if (!isdigit(c)) {
-                    isYear = false;
-                    break;
-                }
-            }
-
-            for (size_t i = events.size(); i-- > 0;) {
-                if (isYear) {
-                    if (events[i].date > arg) {
-                        events.erase(events.begin() + i);
-                    }
-                }
-                else {
-                    if (events[i].name == arg) {
-                        events.erase(events.begin() + i);
-                    }
-                }
-            }
+            removeEvent(events, arg);  
         }
-
     }
     return 0;
 }
