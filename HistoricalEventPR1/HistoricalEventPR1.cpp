@@ -70,7 +70,7 @@ int main() {
             events.push_back(e); // добавляем структуру в конец вектора
         }
         else if (cmd == "PRINT") {
-            for (auto& e : events) {
+            for (const Event& e : events) {
                 printEvent(e);
             }
             cout << "---------------------------------------------------------------" << endl;
