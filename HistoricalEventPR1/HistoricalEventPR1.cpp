@@ -1,31 +1,24 @@
-﻿#include <iostream>   
-#include <fstream>  
-#include <vector>     
-#include <string>     
-using namespace std;
+﻿#include "HistoricalEvent.h"
+#include <iostream>
+#include <cctype>
 
-// Структура "Историческое событие"
-struct Event {
-    string type;
-    string name;   
-    string date;   
-    string extra;
-};
+using namespace std;
 
 void printEvent(const Event& e) {
     if (e.type == "BATTLE") {
-        cout << "Битва: " << e.name
-            << ", дата: " << e.date
-            << ", место: " << e.extra << endl;
+        cout << "Battle: " << e.name
+            << ", date: " << e.date
+            << ", place: " << e.extra << endl;
     }
     else if (e.type == "TREATY") {
-        cout << "Договор: " << e.name
-            << ", дата: " << e.date
-            << ", стороны: " << e.extra << endl;
+        cout << "Treaty: " << e.name
+            << ", date: " << e.date
+            << ", sides: " << e.extra << endl;
     }
 }
 
-void removeEvent(vector<Event>& events, const string& arg) {
+
+void removeEvent(vector<Event>& events, const std::string& arg) {
     bool isYear = true;
     for (char c : arg) {
         if (!isdigit(c)) {
@@ -48,38 +41,4 @@ void removeEvent(vector<Event>& events, const string& arg) {
             }
         }
     }
-}
-
-
-int main() {
-    setlocale(0, "");
-    vector<Event> events;
-    ifstream file("commands.txt");
-    if (!file.is_open()) {
-        cerr << "Ошибка: не удалось открыть файл commands.txt" << endl;
-        return 1;
-    }
-
-    string cmd;
-
-    // Читаем команды из файла
-    while (file >> cmd) {
-        if (cmd == "ADD") {
-            Event e;
-            file >> e.type >> e.name >> e.date >> e.extra;
-            events.push_back(e); // добавляем структуру в конец вектора
-        }
-        else if (cmd == "PRINT") {
-            for (const Event& e : events) {
-                printEvent(e);
-            }
-            cout << "---------------------------------------------------------------" << endl;
-        }
-        else if (cmd == "REM") {
-            string arg;
-            file >> arg;
-            removeEvent(events, arg);  
-        }
-    }
-    return 0;
 }
