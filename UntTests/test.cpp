@@ -86,10 +86,38 @@ TEST(EventTest, RemoveInvalidYear) {
     vector<Event> events;
     events.push_back({ "BATTLE", "Battle", "2025", "Place" });
 
-    removeEvent(events, "20X5");         // некорректный год
+    removeEvent(events, "20X5");         
     ASSERT_EQ(events.size(), 1);         // событие должно остаться
 }
 
+TEST(EventTest, PreventEmptyName) {
+    vector<Event> events;
+
+    Event e1 = { "BATTLE", "", "2025", "Field" };
+
+    if (!e1.name.empty()) {
+        events.push_back(e1);
+    }
+
+    ASSERT_TRUE(events.empty());
+}
+
+TEST(EventTest, DateMustBeNumber) {
+    vector<Event> events;
+
+    auto addEvent = [&](const Event& e) {
+        if (e.date.size() != 4 || !all_of(e.date.begin(), e.date.end(), ::isdigit)) {
+            throw invalid_argument("Invalid date");
+        }
+        events.push_back(e);
+        };
+
+    Event e1 = { "BATTLE", "Battle", "20/25", "Field" };
+    Event e2 = { "TREATY", "Treaty", "2025", "Sides" }; 
+
+    ASSERT_THROW(addEvent(e1), invalid_argument);
+
+}
 // main для запуска всех тестов
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
